@@ -11,6 +11,9 @@ function App() {
     hue: chosenHue,
     luminosity: chosenLuminosity,
   });
+  const [width, setWidth] = useState(600);
+  const colorBoxWidth = width * (2 / 3);
+
   return (
     <div className="App">
       <h1>Welcome to the Random Color Generator</h1>
@@ -18,8 +21,8 @@ function App() {
       <div
         className="outerBox"
         style={{
-          width: 600,
-          height: 600,
+          width: width,
+          height: width,
           margin: '0 auto',
           display: 'flex',
           justifyContent: 'center',
@@ -27,15 +30,15 @@ function App() {
           fontSize: 40,
           border: '10px white',
           borderRadius: 25,
-          backgroundColor: `${invert(backgroundColor)}`,
-          color: `${invert(backgroundColor, true)}`,
+          backgroundColor: invert(backgroundColor),
+          color: invert(backgroundColor, true),
         }}
       >
         <div
           className="colorBox"
           style={{
-            width: 400,
-            height: 400,
+            width: colorBoxWidth,
+            height: colorBoxWidth,
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'center',
@@ -43,7 +46,7 @@ function App() {
             fontSize: 40,
             border: '1px white',
             borderRadius: 25,
-            backgroundColor: `${backgroundColor}`,
+            backgroundColor: backgroundColor,
           }}
         >
           Generated Color: {backgroundColor}
@@ -75,6 +78,16 @@ function App() {
           onChange={(event) => setChosenLuminosity(event.currentTarget.value)}
         />
         <br />
+        <label htmlFor="resize">Want to resize?</label>
+        <input
+          type="number"
+          name="resize"
+          id="resize"
+          min="400"
+          max="900"
+          value={width}
+          onChange={(event) => setWidth(event.currentTarget.value)}
+        />
       </div>
       <br />
       <br />
