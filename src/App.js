@@ -1,23 +1,83 @@
-import logo from './logo.svg';
 import './App.css';
+import invert from 'invert-color';
+import randomColor from 'randomcolor';
+import { useState } from 'react';
 
 function App() {
+  const [backgroundColor, setBackgroundColor] = useState(randomColor());
+  const [chosenHue, setChosenHue] = useState('random');
+  const [chosenLuminosity, setChosenLuminosity] = useState('random');
+  const newBackgroundColor = randomColor({
+    hue: chosenHue,
+    luminosity: chosenLuminosity,
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <h1>Welcome to the Random Color Generator</h1>
+      <h3>It's awesome, trust me!</h3>
+      <div
+        className="outerBox"
+        style={{
+          width: 600,
+          height: 600,
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: 40,
+          border: '10px white',
+          borderRadius: 25,
+          backgroundColor: `${invert(backgroundColor)}`,
+          color: `${invert(backgroundColor, true)}`,
+        }}
+      >
+        <div
+          className="colorBox"
+          style={{
+            width: 400,
+            height: 400,
+            margin: '0 auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 40,
+            border: '1px white',
+            borderRadius: 25,
+            backgroundColor: `${backgroundColor}`,
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          Generated Color: {backgroundColor}
+        </div>
+      </div>
+      <br />
+      <button onClick={() => setBackgroundColor(newBackgroundColor)}>
+        Generate
+      </button>
+      <br />
+      <br />
+      <h4>Specify values here!</h4>
+      <div>
+        <label htmlFor="hue">Specify a hue</label>
+        <input
+          name="hue"
+          id="hue"
+          value={chosenHue}
+          onChange={(event) => {
+            setChosenHue(event.currentTarget.value);
+          }}
+        />
+        <br />
+        <label htmlFor="luminosity">Specify a luminosity value</label>
+        <input
+          name="luminosity"
+          id="luminosity"
+          value={chosenLuminosity}
+          onChange={(event) => setChosenLuminosity(event.currentTarget.value)}
+        />
+        <br />
+      </div>
+      <br />
+      <br />
     </div>
   );
 }
