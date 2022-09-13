@@ -80,10 +80,10 @@ function App() {
         <br />
         <label htmlFor="resize">Want to resize?</label>
         <input
-          type="number"
+          type="range"
           name="resize"
           id="resize"
-          min="400"
+          min="300"
           max="900"
           value={width}
           onChange={(event) => setWidth(event.currentTarget.value)}
